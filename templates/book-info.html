@@ -1,0 +1,42 @@
+{% extends "header.html" %}
+{%block title %}<title>{{book.title.title()}}</title>{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-4 book-info-left">
+      <img src="{{url_for('static', filename='assets/images/covers/' + book.cover_image_location)}}"
+        class="img-fluid rounded poster-img" alt="book.cover_image_location">
+      <div class="dropdown">
+        <button class="btn shelf-btn dropdown-toggle manage-btn" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {% if user_shelf %}
+          {{user_shelf}}
+          {% else %}
+          Add Book To
+          {% endif %}
+        </button>
+        <ul class="dropdown-menu manage-btn">
+          {% for shelf in shelves %}
+          <li><a class="dropdown-item"
+              href="{{url_for('add_to_shelf', book_id=book.book_id, book_title=book.title, shelf_id=shelf.shelf_id, user_list=False)}}">{{shelf.shelf_name.title()}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <a href="{{url_for('update_book', book_id=book.book_id)}}"
+        class="btn btn-warning manage-btn">Update</a>
+    </div>
+    <div class="col-lg-9 col-md-9 col-sm-8 book-info">
+      <a href="#" style="text-decoration: none;" class="fst-italic">{{book.series.title()}} #{{book.volume_number}}</a>
+      <h1 class="title">{{book.title.title()}}</h1>
+      <a href="{{url_for('person_book_list', profession='author', id=author.id)}}" class="" style="text-decoration: none;">{{author.name.title()}}</a>
+      {% if illustrator%}
+      <span>,</span>
+      <a href="{{url_for('person_book_list', profession='illustrator', id=illustrator.id)}}" style="text-decoration: none; padding-left:0.5rem">{{illustrator.name.title()}}</a>
+      {%endif%}
+
+      <p>{{book.description | safe}}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

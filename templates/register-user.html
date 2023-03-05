@@ -1,0 +1,16 @@
+{%include "header.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{%block title %}<title>Register</title>{%endblock%}
+
+{%block content %}
+  {% if error %}
+    <p class=error><strong>Error:</strong> {{ error }}
+  {% endif %}
+<div class="register-body">
+    <h1 class="heading">Register</h1>
+    <div class="register-form container">
+
+        {{wtf.quick_form(register_form, novalidate=True)}}
+    </div>
+</div>
+{% endblock %}

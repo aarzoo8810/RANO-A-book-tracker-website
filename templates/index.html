@@ -1,0 +1,39 @@
+{%include "header.html" %}
+{%block title %}<title>RANO Keep Track of Your Light Novel</title>{% endblock %}
+{%block content %}
+<div class="container-fluid">
+<h1>Keep Track of Your Light Novel</h1>
+  <div class="row">
+    <div class="col-lg-9 browse-book">
+      <h2 class="book-item-heading">Browse</h2>
+      <div class="container-fluid">
+        <div class="row">
+          {% for book in books %}
+          <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-6">
+            <div class="book-item">
+                <div class="book-img">
+                  <a href="{{url_for('page_info', book_id=book.book_id)}}" style="text-decoration:none" class="book-link">
+                    <img src="{{url_for('static', filename='assets/images/covers/' + book.cover_image_location)}}" class="img-border img-fluid rounded book-item-img" alt="{{book.title}}">
+                    <p class="text-truncate" href="#">{{book.title.title()}}</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 trending">
+      <h2 class="trending-book-heading">Trending</h2>
+
+      <div class="trending-book-item">
+        <a href="#" style="text-decoration:none;" class="trending-book-anchor">
+          <img src="#" alt="img-name">
+          <span>Lorem Ipsum, Lorem Ipsum</span>
+        </a>
+      </div>
+    </div>
+  </div>
+    <a href="{{url_for('add')}}" class="btn add-btn">add</a>
+</div>
+{%endblock%}

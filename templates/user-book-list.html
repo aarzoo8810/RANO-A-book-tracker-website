@@ -1,0 +1,46 @@
+{% include "header.html" %}
+
+{% block title %}<title>{{current_user.user_name}}'s List</title>{%endblock%}
+
+{% block content %}
+
+<h1>{{current_user.user_name}}'s List</h1>
+
+<div class="container book-list">
+    <div class="list-item">
+        {% for book_shelf in user_books %}
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 img-grid">
+                <img src="{{url_for('static', filename='assets/images/covers/' + book_shelf[0].cover_image_location)}}" class="img-fluid rounded user-book-img" alt="{{book_shelf[0].cover_image_location}}">
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-9 col-9 list-item-text">
+                <div class="book-list-author">
+                    <h6 class="text-truncate">{{book_shelf[0].title}}</h6>
+                    <a href="{{url_for('person_book_list', profession='author', id=book_shelf[2].id)}}" class="" style="text-decoration: none;">{{book_shelf[2].name.title()}}</a>
+                    {% if book_shelf[3].name%}
+                    <span>,</span>
+                    <a href="{{url_for('person_book_list', profession='illustrator', id=book_shelf[3].id)}}" style="text-decoration: none; padding-left:0.5rem">{{book_shelf[3].name.title()}}</a>
+                    {%endif%}
+                </div>
+
+                <span>Shelf: </span>
+                <span class="dropdown user-list-dropdown">
+                    <button class="btn btn-sm dropdown-toggle shelf-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{book_shelf[1].shelf_name.title()}}
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for shelf in shelves %}
+                      <li><a class="dropdown-item" href="{{url_for('add_to_shelf', book_id=book_shelf[0].book_id, book_title=book_shelf[0].title, user_id=current_user.user_id, shelf_id=shelf.shelf_id, user_list=True)}}">{{shelf.shelf_name}}</a></li>
+                        {% endfor %}
+                        <li><a class="dropdown-item dropdown-item-delete" href="{{url_for('delete_from_user_list', book_id=book_shelf[0].book_id, book_title=book_shelf[0].title,)}}">Remove From List</a></li>
+                    </ul>
+                </span>
+
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{%extends "header.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{%block title %}
+{% if update_form %}
+    <title>Edit Book</title>
+{% else %}
+    <title>Add a New Book</title>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="heading">
+    {% if update_form %}
+    <h1>Edit Book</h1>
+    {% else %}
+    <h1>Add a Book</h1>
+    {% endif %}
+</div>
+
+<div class="add-form container">
+    {% if update_form %}
+        {{wtf.quick_form(update_form, novalidate=True)}}
+    {% else %}
+        {{wtf.quick_form(form, novalidate=True)}}
+    {% endif %}
+    {{ckeditor.load()}}
+</div>
+{%endblock%}

@@ -1,0 +1,54 @@
+{% include "header.html" %}
+
+{% block title %}<title>Results for "{{searched_word}}"</title>{%endblock%}
+{% block content %}
+
+{%if person %}
+<h1>Results for "{{person.name}}"</h1>
+{%else%}
+<h1>Results for "{{searched_word}}"</h1>
+{%endif%}
+
+<div class="container book-list">
+    <div class="list-item">
+        {% if person_books %}
+        {% for book in person_books %}
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 img-grid">
+                <img src="{{url_for('static', filename='assets/images/covers/' + book.cover_image_location)}}" class="img-fluid rounded user-book-img" alt="{{book.cover_image_location}}">
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-9 col-9 list-item-text">
+                <div class="book-list-author">
+                    <a href="#" style="text-decoration: none;" class="trending-book-item">
+                        <h6 class="text-truncate">{{book.title}}</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        {% endif %}
+        {% for book in  searched_books %}
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-3 col-3 img-grid">
+                <img src="{{url_for('static', filename='assets/images/covers/' + book.cover_image_location)}}" class="img-fluid rounded user-book-img" alt="{{book.cover_image_location}}">
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-9 col-9 list-item-text">
+                <div class="book-list-author">
+                    <a href="#" style="text-decoration: none;" class="trending-book-item">
+                        <h6 class="text-truncate">{{book.title}}</h6>
+                    </a>
+                    <a href="{{url_for('creator', creator_name=book.author)}}" class="" style="text-decoration: none;">{{book.author.title()}}</a>
+                    {% if book.illustrator != ''%}
+                    <span>,</span>
+                    <a href="{{url_for('creator', creator_name=book.illustrator)}}" style="text-decoration: none; padding-left:0.5rem">{{book.illustrator.title()}}</a>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

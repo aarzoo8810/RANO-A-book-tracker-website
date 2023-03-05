@@ -1,0 +1,230 @@
+body {
+    background-color: #20262E;
+    color: #E9E8E8;
+    text-align: center;
+}
+
+.brand {
+    font-weight: bolder;
+}
+
+h2 {
+    padding-left: 0.5rem;
+}
+
+.dropdown-menu {
+    background-color: #CD5888;
+    color: #E9E8E8;
+}
+
+.dropdown-item {
+    background-color: #CD5888;
+    color: #20262E;
+}
+
+.dropdown-item:hover {
+    background-color: #913175;
+}
+
+.trending-book-heading {
+    background-color: #913175;
+    text-align: left;
+
+}
+
+.trending-book-item {
+    text-align: left;
+    color: #E9E8E8;
+}
+
+.trending-book-anchor {
+    color: #E9E8E8;
+}
+
+.book-item-heading {
+    background-color: #CD5888;
+    color: #050014;
+    text-align: left;
+}
+
+.book-title {
+    max-width: 150px;
+}
+
+.book-card {
+    background-color: #20262E;
+}
+
+.poster-img {
+    margin-bottom: 2rem;
+    width: 100%;
+    border: 3px solid #913175;
+}
+
+.manage-btn {
+    margin: 0 0 1rem 0;
+    width: 100%;
+}
+
+.add-btn,
+.shelf-btn {
+    background-color: #913175;
+}
+
+.add-btn:hover,
+.shelf-btn:hover {
+    background-color: #CD5888;
+}
+
+#submit_book,
+#submit {
+    background-color: #913175;
+    color: #E9E8E8;
+}
+
+#submit_book:hover,
+#submit:hover {
+    background-color: #CD5888;
+}
+
+.header-navbar {
+    background-color: #913175;
+    color: #E9E8E8;
+    margin-bottom: 3rem;
+}
+
+.nav-link {
+    color: #E9E8E8;
+}
+
+.book-info {
+    text-align: left;
+}
+
+.title {
+    font-weight: bold;
+}
+
+/* .book-item{
+    text-align: left;
+} */
+
+.book-item-img {
+    min-width: auto;
+    height: 270px;
+    min-width: none;
+
+}
+
+.book-link {
+    color: #E9E8E8;
+}
+
+@media (max-width: 1770px) {
+    .book-item-img {
+        min-width: auto;
+        height: 230px;
+    }
+}
+
+@media (max-width: 1560px) {
+    .book-item-img {
+        min-width: auto;
+        height: 180px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .book-item-img {
+        min-width: auto;
+        height: 230px;
+    }
+}
+
+@media (max-width: 576px) {
+    .book-item-img {
+        min-width: auto;
+        height: 200px;
+    }
+}
+
+
+/* form pages */
+
+.add-form {
+    text-align: left;
+    padding-bottom: 7rem;
+}
+
+.form-group {
+    padding-bottom: 1.5%;
+}
+
+.register-body {
+    padding: 7rem 30% 7rem 30%;
+}
+
+@media (max-width:576px) {
+    .register-body {
+        padding: 7rem 15% 7rem 15%;
+    }
+}
+
+
+.register-form {
+    text-align: left;
+
+}
+
+/* user-book-list */
+
+.book-list {
+    margin-top: 4rem;
+}
+
+.list-item-text {
+    text-align: left;
+}
+
+.user-book-img {
+    height: 170px;
+    width: auto;
+}
+
+@media (max-width:576px) {
+    .user-book-img {
+        height: 105px;
+        width: auto;
+    }
+}
+
+.user-list-dropdown {
+    margin-left: 15px;
+}
+
+.book-list-author {
+    margin-bottom: 3%;
+}
+
+.dropdown-item-delete {
+    background-color: red;
+    color: #E9E8E8;
+}
+
+.dropdown-item-delete:hover {
+    background-color:crimson;
+    color: black;
+}
+
+
+.error{
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
+
+/* add-book */
+.help-block{
+    color: red;
+    font-size: 0.8rem;
+}
