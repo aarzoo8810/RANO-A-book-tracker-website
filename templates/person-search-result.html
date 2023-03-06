@@ -1,0 +1,42 @@
+{% include "header.html" %}
+
+{% block title %}<title>Results for "{{searched_word}}"</title>{%endblock%}
+{% block content %}
+
+<h1>Results for "{{searched_word}}"</h1>
+
+
+<div class="container book-list">
+    <div class="list-item">
+        {%if authors %}
+        {% for author in authors %}
+        <div class="row">
+            
+            <div class="col-lg-10 col-md-9 col-sm-9 col-9 list-item-text">
+                <div class="book-list-author">
+                    <a href="{{url_for('person_book_list', profession='author', id=author.id)}}" style="text-decoration: none;" class="trending-book-item">
+                        <h6 class="text-truncate">{{author.name}}</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        {% endif %}
+        {% if illustrators %}
+        {% for illustrator in illustrators %}
+        <div class="row">
+            
+            <div class="col-lg-10 col-md-9 col-sm-9 col-9 list-item-text">
+                <div class="book-list-author">
+                    <a href="{{url_for('person_book_list', profession='illustrator', id=illustrator.id)}}" style="text-decoration: none;" class="trending-book-item">
+                        <h6 class="text-truncate">{{illustrator.name}}</h6>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        {% endif %}
+
+{% endblock %}

@@ -467,13 +467,24 @@ def user_book_list(user_name):
 def search():
     if request.method == "POST":
         key_word = request.form.get("search")
-        key_word_list = key_word.split()
-        result_books = Book.query.filter(Book.title.like('%'+ key_word + '%')).all()
-        return render_template("search-result.html",
-                                searched_books=result_books,
-                                searched_word=key_word)
+        
+        if key_word.startswith(">>"):
+            key_word = key_word.replace(">>", "").strip()
+            authors = Authors.query.filter(Authors.name.like('%' + key_word + '%')).all()
+            illustrators = Illustrator.query.filter(Illustrator.name.like('%' + key_word + '%')).all()
+
+            return render_template("person-search-result.html",
+                                    logged_in=current_user.is_authenticated, 
+                                    authors=authors,
+                                    illustrators=illustrators,
+                                    searched_word=key_word)
+        else:
+            result_books = Book.query.filter(Book.title.like('%'+ key_word + '%')).all()
+            return render_template("search-result.html",
+                                    searched_books=result_books,
+                                    searched_word=key_word)
     
-    return "hello"
+    return abort(404)
 
 # @app.route("/author/<creator_name>")
 # def creator(creator_name):
