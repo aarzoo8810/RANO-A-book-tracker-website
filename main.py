@@ -486,21 +486,6 @@ def search():
     
     return abort(404)
 
-# @app.route("/author/<creator_name>")
-# def creator(creator_name):
-#     book_by_author = Book.query.filter_by(author=creator_name).all()
-#     book_by_illustrator = Book.query.filter_by(illustrator=creator_name).all()
-
-#     for book in book_by_author:
-#         if book in book_by_author:
-#             book_by_illustrator.remove(book)
-
-#     books = book_by_author + book_by_author
-
-    return render_template("search-result.html",
-                           searched_books=book_by_author,
-                           searched_word=creator_name)
-
 
 @app.route("/add-person", methods=["GET", "POST"])
 def add_person():
