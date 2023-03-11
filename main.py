@@ -582,7 +582,6 @@ def person_book_list(profession, id):
         if person:
             person_books = Book.query.filter_by(illustrator_id=person.id)
             
-    
     return render_template("search-result.html", person=person, person_books=person_books,
                             logged_in=current_user.is_authenticated)
 
