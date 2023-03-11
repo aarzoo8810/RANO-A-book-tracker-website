@@ -522,12 +522,14 @@ def search():
                                     logged_in=current_user.is_authenticated, 
                                     authors=authors,
                                     illustrators=illustrators,
-                                    searched_word=key_word)
+                                    searched_word=key_word,
+                                    logged_in=current_user.is_authenticated)
         else:
             result_books = Book.query.filter(Book.title.like('%'+ key_word + '%')).all()
             return render_template("search-result.html",
                                     searched_books=result_books,
-                                    searched_word=key_word)
+                                    searched_word=key_word,
+                                    logged_in=current_user.is_authenticated)
     
     return abort(404)
 
@@ -563,7 +565,9 @@ def add_person():
 
 
             return f"{name = }\n{dob = }\n{job = }\n{description = }"
-    return render_template("add-person.html", form=form)
+    return render_template("add-person.html", 
+                            form=form, 
+                            logged_in=current_user.is_authenticated)
 
 
 @app.route("/person/<profession>/<id>")
@@ -578,7 +582,8 @@ def person_book_list(profession, id):
     if person:
         person_books = Book.query.filter_by(author_id=person.id)
     
-    return render_template("search-result.html", person=person, person_books=person_books)
+    return render_template("search-result.html", person=person, person_books=person_books,
+                            logged_in=current_user.is_authenticated)
 
 
 @app.route("/post-comment/<book_id>", methods=["GET", "POST"])
