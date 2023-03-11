@@ -572,14 +572,16 @@ def add_person():
 @app.route("/person/<profession>/<id>")
 def person_book_list(profession, id):
     person = None
+    person_book = None
     if profession == "author":
         person = Authors.query.filter_by(id=id).first()
+        if person:
+            person_books = Book.query.filter_by(author_id=person.id)
     else:
         person = Illustrator.query.filter_by(id=id).first()
-    
-    person_books = None
-    if person:
-        person_books = Book.query.filter_by(author_id=person.id)
+        if person:
+            person_books = Book.query.filter_by(illustrator_id=person.id)
+            
     
     return render_template("search-result.html", person=person, person_books=person_books,
                             logged_in=current_user.is_authenticated)
