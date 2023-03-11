@@ -522,8 +522,7 @@ def search():
                                     logged_in=current_user.is_authenticated, 
                                     authors=authors,
                                     illustrators=illustrators,
-                                    searched_word=key_word,
-                                    logged_in=current_user.is_authenticated)
+                                    searched_word=key_word,)
         else:
             result_books = Book.query.filter(Book.title.like('%'+ key_word + '%')).all()
             return render_template("search-result.html",
