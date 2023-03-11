@@ -2,13 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for, flash, abo
 from flask_bootstrap import Bootstrap
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
-from forms import AddRecord, Register, Login, AddPerson
+from forms import AddRecord, Register, Login, AddPerson, Comment
 import os
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.schema import PrimaryKeyConstraint
 from datetime import datetime
 from flask_ckeditor import CKEditor
 from flask_login import LoginManager, login_user, UserMixin, login_required, logout_user, current_user
+from flask_gravatar import Gravatar
 """name of the website would be  RANO(RAito NOberu) is a japanese world which means light novel"""
 
 
@@ -27,6 +28,15 @@ bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
 SECRET_KEY = "i6jj97487u9e9387df87t8u875dru838757hru"
 app.config["SECRET_KEY"] = SECRET_KEY
+
+
+gravatar = Gravatar(app,
+                    size=100,
+                    rating='g',
+                    default='retro',
+                    force_default=False,
+                    use_ssl=False,
+                    base_url=None)
 
 # connect to db
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -120,6 +130,12 @@ class BookUser(db.Model):
     __table_args__ = (db.PrimaryKeyConstraint("book_id", "user_id"), )
 
 
+class Comments(db.Model):
+    comment_id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String)
+    book_id = db.Column(db.Integer, db.ForeignKey("books.book_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
 class ReadCompleteDate(db.Model):
     __tablename__ = "read_complete_date"
     book_id = db.Column(db.Integer,
@@ -164,18 +180,41 @@ def home():
                            current_user=current_user)
 
 
-@app.route("/book/<book_id>")
+@app.route("/book/<book_id>", methods=["GET", "POST"])
 def page_info(book_id):
-    print(f"{book_id = }")
+    comment_form = Comment()
+
+    if request.method == "POST":
+        if comment_form.validate_on_submit:
+            comment = request.form.get("comment")
+            book_id = book_id
+            user_id = current_user.user_id
+
+            new_comment = Comments(
+                comment=comment,
+                book_id=book_id,
+                user_id=user_id
+            )
+            db.session.add(new_comment)
+            db.session.commit()
+            return redirect(url_for("page_info", book_id=book_id))
+
     book = db.get_or_404(Book, book_id)
+    # TODO: Below line will give 404 error because there is no comment in comment table and book id
+    comments = Comments.query.filter_by(book_id=book_id).all()
+    commenttext_username_userid_list = []
+    for comment in comments:
+        comment_text = comment.comment
+        user_id = comment.user_id
+        user = db.get_or_404(User, user_id)
+        commenttext_username_userid_list.append((comment_text, user))
+
     author = db.get_or_404(Authors, book.author_id)
     try:
         illustrator = db.get_or_404(Illustrator, book.illustrator_id)
     except:
         illustrator=None
-
     shelves = Shelf.query.all()
-
     if current_user.is_authenticated:
         user_id = current_user.user_id
         book_user = BookUser.query.filter_by(book_id=book_id,
@@ -184,23 +223,27 @@ def page_info(book_id):
         if book_user is not None:
             user_book_shelf_id = book_user.shelf_id
             user_book_shelf_name = db.get_or_404(Shelf, user_book_shelf_id).shelf_name.title()
-        
-            return render_template("book-info.html",
-                                book=book,
-                                shelves=shelves,
-                                author=author,
-                                illustrator=illustrator,
-                                user_shelf=user_book_shelf_name,
-                                logged_in=current_user.is_authenticated,
-                                current_user=current_user)
 
+            return render_template("book-info.html",
+                                    book=book,
+                                    shelves=shelves,
+                                    author=author,
+                                    illustrator=illustrator,
+                                    user_shelf=user_book_shelf_name,
+                                    logged_in=current_user.is_authenticated,
+                                    current_user=current_user,
+                                    form=comment_form,
+                                    comments=commenttext_username_userid_list)
+        
     return render_template("book-info.html",
                             book=book,
                             author=author,
                             illustrator=illustrator,
                             shelves=shelves,
                             logged_in=current_user.is_authenticated,
-                            current_user=current_user)
+                            current_user=current_user,
+                            form=comment_form,
+                            comments=commenttext_username_userid_list)
 
 
 @app.route("/add", methods=["GET", "POST"])
@@ -213,10 +256,12 @@ def add():
         volume_number = request.form.get("volume_number")
         author_id = int(request.form.get("author_id"))
         illustrator_id = request.form.get("illustrator_id")
+
         if len(illustrator_id) > 0:
             illustrator_id = int(illustrator_id)
         else:
             illustrator_id = None
+
         release_date = str_to_date(request.form.get("release_date"))
         print(f"{release_date = }")
         description = request.form.get("description").strip()
@@ -535,6 +580,12 @@ def person_book_list(profession, id):
     
     return render_template("search-result.html", person=person, person_books=person_books)
 
+
+@app.route("/post-comment/<book_id>", methods=["GET", "POST"])
+def add_comment(book_id):
+    
+    
+    return redirect(url_for("page_info", book_id=book_id))
 
 
 @app.route("/check")

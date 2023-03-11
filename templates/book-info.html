@@ -1,4 +1,5 @@
 {% extends "header.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 {%block title %}<title>{{book.title.title()}}</title>{% endblock %}
 {% block content %}
 <div class="container">
@@ -36,7 +37,32 @@
       {%endif%}
 
       <p>{{book.description | safe}}</p>
+      <hr>
+      <h3>Comments</h3>
+      {% if not logged_in %}
+        <a href="{{url_for('login')}}" class="btn add-btn">Login to Comment </a>
+      {% else %}
+      <div class="comment-section">
+        {{wtf.quick_form(form, novalidate=True)}}
+        {{ckeditor.load(pkg_type="basic")}}
+        <hr>
+        {% endif %}
+        {% for comment in comments %}
+        <div class="comment">
+          <div class="comment-header">
+            <img src="{{comment[1].user_email | gravatar(size=30)}}" class="img-fluid rounded gravatar-pic" alt="profile-pic">
+            <span>{{comment[1].user_name}}</span>
+          </div>
+          <div class="comment-body">
+            {{comment[0] | safe}}
+          </div>
+        </div>
+        <hr>
+        {% endfor %}
+      </div>
+      
     </div>
   </div>
+  
 </div>
 {% endblock %}

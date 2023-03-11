@@ -228,3 +228,15 @@ h2 {
     color: red;
     font-size: 0.8rem;
 }
+
+
+/* Comments section */
+.comment-header {
+    font-size: x-small;
+    margin-bottom: 1rem;
+    color: rgb(206, 223, 238);
+}
+
+.gravatar-pic {
+    margin-right: 0.3rem;
+}

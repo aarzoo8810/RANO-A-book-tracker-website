@@ -61,3 +61,8 @@ class AddPerson(FlaskForm):
     job = SelectField("Profession", validators=[DataRequired()], choices=["Author", "Illustrator"])
     description = TextAreaField("About")
     submit = SubmitField("Submit")
+
+
+class Comment(FlaskForm):
+    comment = CKEditorField("Leave a Comment", validators=[DataRequired()])
+    submit = SubmitField("Submit")
