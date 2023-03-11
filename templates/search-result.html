@@ -35,14 +35,9 @@
             </div>
             <div class="col-lg-10 col-md-9 col-sm-9 col-9 list-item-text">
                 <div class="book-list-author">
-                    <a href="#" style="text-decoration: none;" class="trending-book-item">
+                    <a href="{{url_for('page_info', book_id=book.book_id)}}" style="text-decoration: none;" class="trending-book-item">
                         <h6 class="text-truncate">{{book.title}}</h6>
                     </a>
-                    <a href="{{url_for('creator', creator_name=book.author)}}" class="" style="text-decoration: none;">{{book.author.title()}}</a>
-                    {% if book.illustrator != ''%}
-                    <span>,</span>
-                    <a href="{{url_for('creator', creator_name=book.illustrator)}}" style="text-decoration: none; padding-left:0.5rem">{{book.illustrator.title()}}</a>
-                    {%endif%}
                 </div>
             </div>
         </div>

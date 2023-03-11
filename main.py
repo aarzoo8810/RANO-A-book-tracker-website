@@ -525,6 +525,7 @@ def search():
                                     searched_word=key_word,)
         else:
             result_books = Book.query.filter(Book.title.like('%'+ key_word + '%')).all()
+            
             return render_template("search-result.html",
                                     searched_books=result_books,
                                     searched_word=key_word,
