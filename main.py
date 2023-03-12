@@ -263,7 +263,6 @@ def add():
             illustrator_id = None
 
         release_date = str_to_date(request.form.get("release_date"))
-        print(f"{release_date = }")
         description = request.form.get("description").strip()
         cover = form.cover.data
 
@@ -273,14 +272,9 @@ def add():
         .{secure_filename(cover.filename).split('.')[-1].strip()}"
 
         # save file in assets/cover folder
-        cwd = os.getcwd()
         cover_image_abs_path = os.path.join(BASE_DIR,
                                             rel_cover_folder_path,
                                             cover_filename)
-
-        print(f"{secure_filename(cover.filename) = }")
-        print(f"{title = }")
-        print(f"{series = }")
 
         # add book information to the database
         new_book = Book(
