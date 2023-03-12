@@ -34,21 +34,23 @@
                 </ul>
 
                 {% if not logged_in %}
-                <div class="sign-in navbar-nav">
-                  <a href="{{url_for('login')}}" class="btn btn-dark nav-link me-2" style="text-decoration: none;"> Login </a>
+                <div class="sign-in">
+                  <a href="{{url_for('login')}}" class="btn btn-dark me-2" style="text-decoration: none;"> Login </a>
                 </div>
-                <div class="sign-in navbar-nav">
-                  <a href="{{url_for('register')}}" class="btn btn-dark nav-link me-2" style="text-decoration: none;">Sign Up</a>
+                <div class="sign-in">
+                  <a href="{{url_for('register')}}" class="btn btn-dark me-2" style="text-decoration: none;">Sign Up</a>
                 </div>
                 {% else %}
-                <div class="dropdown" aria-expanded="false">
-                  <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{current_user.user_name}}
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{url_for('user_book_list', user_name=current_user.user_name)}}">Book List</a></li>
-                    <li><a class="dropdown-item" href="{{url_for('logout')}}">Log Out</a></li>
-                  </ul>
+                <div class="navbar-nav sign-in">
+                  <div class="nav-item dropdown">
+                    <a class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{current_user.user_name}}
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{url_for('user_book_list', user_name=current_user.user_name)}}">Book List</a></li>
+                      <li><a class="dropdown-item" href="{{url_for('logout')}}">Log Out</a></li>
+                    </ul>
+                  </div>
                 </div>
                 {% endif %}
       

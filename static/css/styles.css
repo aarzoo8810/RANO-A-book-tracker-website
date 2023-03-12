@@ -12,6 +12,11 @@ h2 {
     padding-left: 0.5rem;
 }
 
+/* header */
+.sign-in{
+    margin-bottom: 0.2rem;
+}
+
 .dropdown-menu {
     background-color: #CD5888;
     color: #E9E8E8;
