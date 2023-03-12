@@ -303,7 +303,6 @@ def add():
 @app.route("/book/<book_id>/update", methods=["GET", "POST"])
 @login_required
 def update_book(book_id):
-    print(f"{book_id = }")
     book = db.get_or_404(Book, book_id)
     form = AddRecord()
     old_book_title = book.title
@@ -546,7 +545,6 @@ def add_person():
                 )
                 print(f"{db.session.add(new_author)}")
                 print(f"{db.session.commit()}")
-                print(f"{new_author.id = }")
             else:
                 new_illustrator = Illustrator(
                     name=name,
