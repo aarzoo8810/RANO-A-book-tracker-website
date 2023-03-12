@@ -556,7 +556,7 @@ def add_person():
 
 
 
-            return f"{name = }\n{dob = }\n{job = }\n{description = }"
+            return ""
     return render_template("add-person.html", 
                             form=form, 
                             logged_in=current_user.is_authenticated)
