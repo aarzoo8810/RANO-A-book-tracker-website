@@ -554,9 +554,8 @@ def add_person():
                 print(f"{db.session.add(new_illustrator)}")
                 db.session.commit()
 
-
-
-            return ""
+            return "success"
+        
     return render_template("add-person.html", 
                             form=form, 
                             logged_in=current_user.is_authenticated)
