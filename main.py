@@ -35,7 +35,7 @@ gravatar = Gravatar(app,
                     rating='g',
                     default='retro',
                     force_default=False,
-                    use_ssl=False,
+                    use_ssl=True,
                     base_url=None)
 
 # connect to db
