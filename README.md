@@ -1,7 +1,7 @@
 # About This Project
 ## <a href="https://rano-flask-webservice.onrender.com">Go to the Website </a>
 
-This website is built using <b>Flask Framework</b>, with <b>Bootstrap</b> and <b>SQLITE<b> as database. This app has features such as
+This website is built using <b>Flask Framework</b>, with <b>Bootstrap</b> and <b>SQLITE</b> as database. This app has features such as
 * be able to view book information
 * Add a new book
 * add a new author/person
