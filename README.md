@@ -1,5 +1,5 @@
 # About This Project
-## <a href="https://rano-flask-webservice.onrender.com">Go to the Website </a>
+## <a href="https://rano-flask-webservice.onrender.com">Go to the Website </a>(It will take time to load because hosting server has to start.)
 For first time this website will take some time to open because server has to start.
 
 This website is built using <b>Flask Framework</b>, with <b>Bootstrap</b> and <b>SQLITE</b> as database. This app has features such as
